@@ -41,7 +41,7 @@ module.exports = function(content) {
 		 // support functions as outputPath to generate them dynamically
 		 outputPath = typeof config.outputPath === "function"
 		 ? config.outputPath(url)
-		 : config.outputPath + url
+ 		 : config.outputPath + url;
 	}
 
 	if (config.publicPath) {
@@ -57,6 +57,11 @@ module.exports = function(content) {
 		this.emitFile(outputPath, content);
 	}
 
-	return "module.exports = " + publicPath + ";";
-}
+        var env = '';
+        if (config.envPrefix) {
+                env = config.envPrefix;
+        }
+
+	return "module.exports = " + env + publicPath + ";";
+};
 module.exports.raw = true;
